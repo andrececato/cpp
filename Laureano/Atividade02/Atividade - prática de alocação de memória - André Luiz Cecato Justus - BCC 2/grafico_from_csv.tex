@@ -1,0 +1,47 @@
+\documentclass[landscape]{standalone}
+%\documentclass[landscape,margin=10pt,pstricks]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{backgrounds}
+\pgfplotsset{compat=1.16}
+
+\pgfplotstableread[col sep=semicolon]{table.csv}\original
+
+
+\pgfplotstablegetrowsof{table.csv}
+\pgfmathtruncatemacro{\rowsX}{\pgfplotsretval}
+
+
+
+\begin{document}
+
+    \begin{tikzpicture}[framed]
+    \begin{axis}[
+        title={Gráfico de tempo de execução (Moto G7 Play)},
+        legend style={
+        at={(0.5,-0.3)},
+        anchor=south,
+            legend columns=-1,
+            /tikz/every even column/.append style={column sep=0.5cm}
+        },
+        ylabel=Segundos,
+        xlabel=Registros,
+        ymajorgrids=true,
+        extra y ticks=1, 
+        grid style=dashed, 
+        xmajorgrids=true, 
+        extra y tick style={grid=major, tick style={line width=1pt}, grid style={line width=1pt,dashed,black}},
+        x=0.3cm,font=\sffamily,
+        xmin=1,xmax=\rowsX ]
+
+    \addplot [red, mark=square] table [x=user,y=user]{\original};
+    
+    \addplot [orange, mark=square] table [x=user,y=system]{\original};
+
+  \legend{ Usuário, Sistema}
+
+    \end{axis}
+    \end{tikzpicture}
+    %\end{adjustbox}
+\end{document}
