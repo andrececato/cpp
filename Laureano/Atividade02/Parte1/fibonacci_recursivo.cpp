@@ -10,6 +10,7 @@ int fibonnaciR(int n){
 
 int fibonnaciRMain(int n)
 {
+   fibonnaciR(n);
    //std::cout << "O número de Fibonnaci é: " << fibonnaciR(n) << std::endl;
 
    return 0;
